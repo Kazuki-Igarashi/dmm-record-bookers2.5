@@ -5,6 +5,7 @@ before_action :ensure_correct_user, only: [:edit, :update]
     @book = Book.find(params[:id])
     @user = @book.user
     @find_book = Book.new
+    @book_comment = BookComment.new
   end
 
   def index
@@ -23,7 +24,7 @@ before_action :ensure_correct_user, only: [:edit, :update]
       flash[:notice] = 'Book create successfully'
     else
       @books = Book.all
-      flash[:notice] = 'Book not create successfully'
+      flash[:alert] = 'Book not create successfully'
       render 'index'
     end
   end
