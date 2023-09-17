@@ -9,6 +9,10 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_one_attached :profile_image
 
+  has_many :follwers, class_name: "relationship", foreign_key: "follower_id", dependent: :destroy
+  has_many :follwings, through: :followers, source: :follower
+
+
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
   validates :introduction, length:{maximum: 50 }
   
