@@ -10,14 +10,29 @@
   </tr>
   <tr>
     <th>Follows</th>
+    <th>
+      <%= link_to user_following_path(user) do %>
+        <%= user.following_users.count %>
+      <% end %>
+    </th>
   </tr>
   <tr>
     <th>Followers</th>
+    <th>
+      <%= link_to user_followed_path(user) do %>
+        <%= user.followed_users.count %>
+      <% end %>
+    </th>
   </tr>
 </table>
 　
 <div class='row'>
   <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do %>
     <i class="fas fa-user-cog"></i>
+  <% end %>
+  <% if current_user.following?(user) %>
+    <%= link_to "フォロー外す", user_relationships_path(user), method: :delete, class: "btn follow-btn" %></td>
+  <% else %>
+    <%= link_to "フォローする", user_relationships_path(user), method: :post, class: "btn btn-primary follow-btn" %></td>
   <% end %>
 </div>
