@@ -9,9 +9,10 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_one_attached :profile_image
 
-  has_many :follwers, class_name: "relationship", foreign_key: "follower_id", dependent: :destroy
-  has_many :follwings, through: :followers, source: :follower
-
+  has_many :followers, class_name: 'Relationship', foreign_key: 'follower_id', dependent: :destroy
+  has_many :followeds, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy
+  has_many :following_users, through: :followers, source: :followed
+  has_many :followed_users, through: :followeds, source: :follower
 
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
   validates :introduction, length:{maximum: 50 }
@@ -20,4 +21,9 @@ class User < ApplicationRecord
   def get_profile_image
     (profile_image.attached?) ? profile_image : 'no_image.jpg'
   end
+
+  def following?(user)
+    following_users.include?(user)
+  end
+
 end
