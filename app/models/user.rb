@@ -17,6 +17,17 @@ class User < ApplicationRecord
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
   validates :introduction, length:{maximum: 50 }
   
+  def self.search_for(word, method)
+    if method == 'perfect_match'
+      User.where(name: word)
+    elsif method == 'forward_match'
+      User.where('name LIKE?', word + '%')
+    elsif method == 'backward_match'
+      User.where('name LIKE?', '%' + word)
+    else
+      User.where('name LIKE?', '%' + word + '%')
+    end
+  end
   
   def get_profile_image
     (profile_image.attached?) ? profile_image : 'no_image.jpg'
