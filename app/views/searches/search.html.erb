@@ -1,2 +1,9 @@
-<h1>Searches#search</h1>
-<p>Find me in app/views/searches/search.html.erb</p>
+<div class="conteiner px-5">
+  <% if @model == 'User' %>
+    <h3>User Search for "<%= @word %>"</h3>
+      <%= render 'users/index', users: @records %>
+  <% else %>
+    <h3>Books Search for "<%= @word %>"</h3>
+      <%= render 'books/index', books: @records %>
+  <% end %>
+</div>
