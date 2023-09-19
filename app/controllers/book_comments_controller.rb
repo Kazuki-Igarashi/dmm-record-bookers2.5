@@ -7,13 +7,13 @@ class BookCommentsController < ApplicationController
     comment.book_id = book.id
     comment.save
     flash[:notice] = 'Comment create successfully'
-    redirect_back(fallback_location: root_path)
+    redirect_to request.referer
   end
 
   def destroy
     @book_comment = BookComment.find(params[:id])
     @book_comment.destroy
-    redirect_back(fallback_location: root_path)
+    redirect_to request.referer
     flash[:alert] = "Book was successfully destroyed."
   end
 
