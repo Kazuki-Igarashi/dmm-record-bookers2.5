@@ -9,7 +9,7 @@ before_action :ensure_correct_user, only: [:edit, :update]
   end
 
   def index
-    @books = Book.all
+    @books = Book.page(params[:page])
     @book = Book.new
     @user = current_user
   end
