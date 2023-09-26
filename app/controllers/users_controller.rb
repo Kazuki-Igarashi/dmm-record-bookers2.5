@@ -4,7 +4,8 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @books = @user.books
-    @kaminari_books = @books.page(params[:page])
+    # <!--ページネートが反応しない-->
+    @kaminari_books = @books.page(params[:page]).reverse_order
     @book = Book.new
     @today_book = @books.created_days_ago(0)
     @yesterday_book = @books.created_days_ago(1)

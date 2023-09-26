@@ -9,6 +9,7 @@
     <div class='col-md-8 offset-md-1'>
       <h2>Books</h2>
       <%= render 'books/index',books: @books %>
+      <!--ページネートが反応しない-->
       <%= paginate @kaminari_books %>
       <%= render 'post' ,books: @books %>
       <%= form_with url:user_search_path(@user), method: :get, local: false do |f| %>
